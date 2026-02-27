@@ -49,20 +49,50 @@
  */
 export function addToCart(cart, item) {
   // Your code here
+  if(Array.isArray(cart)){
+    if(item != '' && typeof item === 'string')
+      cart.push(item)
+
+    return cart.length
+  }
+  return -1
 }
 
 export function addUrgentItem(cart, item) {
   // Your code here
+  if(Array.isArray(cart)){
+    if(typeof item === 'string' && item != '')
+      cart.unshift(item)
+
+    return cart
+  }
+  return []
 }
 
 export function removeLastItem(cart) {
   // Your code here
+  if(Array.isArray(cart) && cart.length>0){  
+    let lastElement = cart.at(cart.length-1)
+    cart.pop()
+    return lastElement
+  }
+  return undefined
 }
 
 export function isInCart(cart, item) {
   // Your code here
+  if(Array.isArray(cart))
+    return cart.includes(item)
+  return false
 }
 
 export function mergeCarts(cart1, cart2) {
   // Your code here
+  if(Array.isArray(cart1) && Array.isArray(cart2))
+    return cart1.concat(cart2)
+  else if(Array.isArray(cart1) && !Array.isArray(cart2))
+    return cart1
+  else if(!Array.isArray(cart1) && Array.isArray(cart2))
+    return cart2
+  return []
 }

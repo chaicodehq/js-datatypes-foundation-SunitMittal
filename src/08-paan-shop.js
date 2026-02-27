@@ -47,16 +47,53 @@
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+  if(typeof basePaan === 'object' && !Array.isArray(basePaan) && basePaan !== null){
+    if(typeof customizations === 'object' && !Array.isArray(basePaan))
+      return Object.assign({}, basePaan, customizations)
+    else
+      return {...basePaan}
+  }
+  return {}
 }
 
 export function freezeMenu(menu) {
   // Your code here
+  if(typeof menu === 'object' && !Array.isArray(menu) && menu !== null){
+    return Object.freeze(menu)
+  }
+  return {}
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+  if(typeof menu === 'object' && !Array.isArray(menu) && menu !== null && typeof increase === 'number'){
+    const arr = Object.entries(menu).map(([key, value])=>{
+      return [key, value+increase]
+    })    
+    return Object.fromEntries(arr)
+  }
+  return {}
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+  if(typeof regularMenu === 'object' && !Array.isArray(regularMenu) && typeof specialsMenu === 'object' && !Array.isArray(specialsMenu)){
+    if(typeof regularMenu === 'object' && typeof specialsMenu !== 'object')
+      return regularMenu
+    else if(typeof regularMenu !== 'object' && typeof specialsMenu === 'object')
+      return specialsMenu
+    else
+      return {...regularMenu, ...specialsMenu}
+  }
+  return {}
 }
+
+/*
+ *   4. mergeDailySpecials(regularMenu, specialsMenu)
+ *      - Spread operator {...regularMenu, ...specialsMenu} se merge karo
+ *      - specialsMenu ki values override karengi agar same key ho
+ *      - Return: NEW merged object
+ *      - Agar koi bhi object nahi hai, usse empty {} maan lo
+ *      - Example: mergeDailySpecials({meetha:30}, {chocolate:60, meetha:40})
+ *                 => {meetha:40, chocolate:60}
+*/
